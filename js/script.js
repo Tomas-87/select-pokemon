@@ -15,7 +15,7 @@ function cargarPersonajes() {
 
         .then(response => {
             if (!response.ok) {
-                throw new Error(`El servidor no responde`)
+                throw new Error(`El servidor no responde ${response.status}`)
             }
             return response.json()
         })
@@ -25,35 +25,16 @@ function cargarPersonajes() {
             <h2>${data.name.toUpperCase()}</h2>
             <img src="${data.sprites.front_default}" alt="${data.name}"></img>
             <p><strong>Tipo: </strong>${data.types[0].type.name}
-            <p><strong>Altura: </strong>${data.height}</p>
-            <p><strong>Peso: </strong>${data.weight}</p>`
+            <p><strong>Altura: </strong>${data.height} Metros</p>
+            <p><strong>Peso: </strong>${data.weight} Kilos</p>`
             console.log(data.types)
             pokemons.innerHTML = template
         })
+        .catch((error) => {
+            pokemons.innerHTML = (`Error: ${response.message}`);
+            console.log(error.stack);
+        });
 }
 
 
 
-// ${data.types.map(data => data.type.name).join('')}
-
-// height
-// :
-// 3
-// weight
-// :
-// 40
-
-// front_default
-// types
-// :
-// Array(2)
-// 0
-// :
-// slot
-// :
-// 1
-// type
-// :
-// name
-// :
-// "grass"
